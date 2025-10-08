@@ -7,16 +7,16 @@
 /**
  * A Node.js implementation of the PKCS#11 2.30 interface
  */
-declare module "pkcs11js" {
+declare namespace pkcs11js {
     /**
      * PKCS#11 handle type
      */
-    type Handle = Buffer;
+    export type Handle = Buffer;
 
     /**
      * Structure that describes the version
      */
-    interface Version {
+    export interface Version {
         /**
          * Major version number (the integer portion of the version)
          */
@@ -30,7 +30,7 @@ declare module "pkcs11js" {
     /**
      * Provides general information about Cryptoki
      */
-    interface ModuleInfo {
+    export interface ModuleInfo {
         /**
          * Cryptoki interface version number, for compatibility with future revisions of this interface
          */
@@ -58,7 +58,7 @@ declare module "pkcs11js" {
     /**
      * Provides information about a slot
      */
-    interface SlotInfo {
+    export interface SlotInfo {
         /**
          * Character-string description of the slot.
          * Must be padded with the blank character (' ')
@@ -86,7 +86,7 @@ declare module "pkcs11js" {
     /**
      * Provides information about a token
      */
-    interface TokenInfo {
+    export interface TokenInfo {
         /**
          * Application-defined label, assigned during token initialization.
          * Must be padded with the blank character (' ')
@@ -172,7 +172,7 @@ declare module "pkcs11js" {
     /**
      * Provides information about a particular mechanism
      */
-    interface MechanismInfo {
+    export interface MechanismInfo {
         /**
          * The minimum size of the key for the mechanism
          */
@@ -190,7 +190,7 @@ declare module "pkcs11js" {
     /**
      * Provides information about a session
      */
-    interface SessionInfo {
+    export interface SessionInfo {
         /**
          * ID of the slot that interfaces with the token
          */
@@ -209,12 +209,12 @@ declare module "pkcs11js" {
         deviceError: number;
     }
 
-    type Template = Attribute[];
+    export type Template = Attribute[];
 
     /**
      * A structure that includes the type and value of an attribute
      */
-    interface Attribute {
+    export interface Attribute {
         /**
          * The attribute type
          */
@@ -228,7 +228,7 @@ declare module "pkcs11js" {
     /**
      * A structure that specifies a particular mechanism and any parameters it requires
      */
-    interface Mechanism {
+    export interface Mechanism {
         /**
          * The type of mechanism
          */
@@ -244,7 +244,7 @@ declare module "pkcs11js" {
     /**
      * A base structure of a parameter
      */
-    interface IParams {
+    export interface IParams {
         /**
          * Type of crypto param. Uses constants CK_PARAMS_*
          */
@@ -255,7 +255,7 @@ declare module "pkcs11js" {
      * A structure that provides the parameters for the {@link CKM_ECDH1_DERIVE} and {@link CKM_ECDH1_COFACTOR_DERIVE} 
      * key derivation mechanisms, where each party contributes one key pair
      */
-    interface ECDH1 extends IParams {
+    export interface ECDH1 extends IParams {
         /**
          * Key derivation function used on the shared secret value
          */
@@ -270,33 +270,33 @@ declare module "pkcs11js" {
         publicData: Buffer;
     }
 
-    interface AesCBC extends IParams {
+    export interface AesCBC extends IParams {
         iv: Buffer;
         data?: Buffer;
     }
 
-    interface AesCCM extends IParams {
+    export interface AesCCM extends IParams {
         dataLen: number;
         nonce?: Buffer;
         aad?: Buffer;
         macLen: number;
     }
 
-    interface AesGCM extends IParams {
+    export interface AesGCM extends IParams {
         iv?: Buffer;
         aad?: Buffer;
         ivBits: number;
         tagBits: number;
     }
 
-    interface RsaOAEP extends IParams {
+    export interface RsaOAEP extends IParams {
         hashAlg: number;
         mgf: number;
         source: number;
         sourceData?: Buffer;
     }
 
-    interface RsaPSS extends IParams {
+    export interface RsaPSS extends IParams {
         hashAlg: number;
         mgf: number;
         saltLen: number;
@@ -304,12 +304,12 @@ declare module "pkcs11js" {
 
     //#endregion
 
-    interface KeyPair {
+    export interface KeyPair {
         privateKey: Handle;
         publicKey: Handle;
     }
 
-    interface InitializationOptions {
+    export interface InitializationOptions {
         /**
          * NSS library parameters
          */
@@ -327,7 +327,7 @@ declare module "pkcs11js" {
     /**
      * A Structure which contains a Cryptoki version and each function in the Cryptoki API
      */
-    export class PKCS11 {
+    class PKCS11 {
         /**
          * Library path
          */
@@ -1171,668 +1171,668 @@ declare module "pkcs11js" {
     }
 
     //#region Attributes
-    const CKA_CLASS: number;
-    const CKA_TOKEN: number;
-    const CKA_PRIVATE: number;
-    const CKA_LABEL: number;
-    const CKA_APPLICATION: number;
-    const CKA_VALUE: number;
-    const CKA_OBJECT_ID: number;
-    const CKA_CERTIFICATE_TYPE: number;
-    const CKA_ISSUER: number;
-    const CKA_SERIAL_NUMBER: number;
-    const CKA_AC_ISSUER: number;
-    const CKA_OWNER: number;
-    const CKA_ATTR_TYPES: number;
-    const CKA_TRUSTED: number;
-    const CKA_CERTIFICATE_CATEGORY: number;
-    const CKA_JAVA_MIDP_SECURITY_DOMAIN: number;
-    const CKA_URL: number;
-    const CKA_HASH_OF_SUBJECT_PUBLIC_KEY: number;
-    const CKA_HASH_OF_ISSUER_PUBLIC_KEY: number;
-    const CKA_NAME_HASH_ALGORITHM: number;
-    const CKA_CHECK_VALUE: number;
-    const CKA_KEY_TYPE: number;
-    const CKA_SUBJECT: number;
-    const CKA_ID: number;
-    const CKA_SENSITIVE: number;
-    const CKA_ENCRYPT: number;
-    const CKA_DECRYPT: number;
-    const CKA_WRAP: number;
-    const CKA_UNWRAP: number;
-    const CKA_SIGN: number;
-    const CKA_SIGN_RECOVER: number;
-    const CKA_VERIFY: number;
-    const CKA_VERIFY_RECOVER: number;
-    const CKA_DERIVE: number;
-    const CKA_START_DATE: number;
-    const CKA_END_DATE: number;
-    const CKA_MODULUS: number;
-    const CKA_MODULUS_BITS: number;
-    const CKA_PUBLIC_EXPONENT: number;
-    const CKA_PRIVATE_EXPONENT: number;
-    const CKA_PRIME_1: number;
-    const CKA_PRIME_2: number;
-    const CKA_EXPONENT_1: number;
-    const CKA_EXPONENT_2: number;
-    const CKA_COEFFICIENT: number;
-    const CKA_PRIME: number;
-    const CKA_SUBPRIME: number;
-    const CKA_BASE: number;
-    const CKA_PRIME_BITS: number;
-    const CKA_SUBPRIME_BITS: number;
-    const CKA_SUB_PRIME_BITS: number;
-    const CKA_VALUE_BITS: number;
-    const CKA_VALUE_LEN: number;
-    const CKA_EXTRACTABLE: number;
-    const CKA_LOCAL: number;
-    const CKA_NEVER_EXTRACTABLE: number;
-    const CKA_ALWAYS_SENSITIVE: number;
-    const CKA_KEY_GEN_MECHANISM: number;
-    const CKA_MODIFIABLE: number;
-    const CKA_COPYABLE: number;
-    const CKA_DESTROYABLE: number;
-    const CKA_ECDSA_PARAMS: number;
-    const CKA_EC_PARAMS: number;
-    const CKA_EC_POINT: number;
-    const CKA_SECONDARY_AUTH: number;
-    const CKA_AUTH_PIN_FLAGS: number;
-    const CKA_ALWAYS_AUTHENTICATE: number;
-    const CKA_WRAP_WITH_TRUSTED: number;
-    const CKA_WRAP_TEMPLATE: number;
-    const CKA_UNWRAP_TEMPLATE: number;
-    const CKA_DERIVE_TEMPLATE: number;
-    const CKA_OTP_FORMAT: number;
-    const CKA_OTP_LENGTH: number;
-    const CKA_OTP_TIME_INTERVAL: number;
-    const CKA_OTP_USER_FRIENDLY_MODE: number;
-    const CKA_OTP_CHALLENGE_REQUIREMENT: number;
-    const CKA_OTP_TIME_REQUIREMENT: number;
-    const CKA_OTP_COUNTER_REQUIREMENT: number;
-    const CKA_OTP_PIN_REQUIREMENT: number;
-    const CKA_OTP_COUNTER: number;
-    const CKA_OTP_TIME: number;
-    const CKA_OTP_USER_IDENTIFIER: number;
-    const CKA_OTP_SERVICE_IDENTIFIER: number;
-    const CKA_OTP_SERVICE_LOGO: number;
-    const CKA_OTP_SERVICE_LOGO_TYPE: number;
-    const CKA_GOSTR3410_PARAMS: number;
-    const CKA_GOSTR3411_PARAMS: number;
-    const CKA_GOST28147_PARAMS: number;
-    const CKA_HW_FEATURE_TYPE: number;
-    const CKA_RESET_ON_INIT: number;
-    const CKA_HAS_RESET: number;
-    const CKA_PIXEL_X: number;
-    const CKA_PIXEL_Y: number;
-    const CKA_RESOLUTION: number;
-    const CKA_CHAR_ROWS: number;
-    const CKA_CHAR_COLUMNS: number;
-    const CKA_COLOR: number;
-    const CKA_BITS_PER_PIXEL: number;
-    const CKA_CHAR_SETS: number;
-    const CKA_ENCODING_METHODS: number;
-    const CKA_MIME_TYPES: number;
-    const CKA_MECHANISM_TYPE: number;
-    const CKA_REQUIRED_CMS_ATTRIBUTES: number;
-    const CKA_DEFAULT_CMS_ATTRIBUTES: number;
-    const CKA_SUPPORTED_CMS_ATTRIBUTES: number;
-    const CKA_ALLOWED_MECHANISMS: number;
-    const CKA_VENDOR_DEFINED: number;
+    export const CKA_CLASS: number;
+    export const CKA_TOKEN: number;
+    export const CKA_PRIVATE: number;
+    export const CKA_LABEL: number;
+    export const CKA_APPLICATION: number;
+    export const CKA_VALUE: number;
+    export const CKA_OBJECT_ID: number;
+    export const CKA_CERTIFICATE_TYPE: number;
+    export const CKA_ISSUER: number;
+    export const CKA_SERIAL_NUMBER: number;
+    export const CKA_AC_ISSUER: number;
+    export const CKA_OWNER: number;
+    export const CKA_ATTR_TYPES: number;
+    export const CKA_TRUSTED: number;
+    export const CKA_CERTIFICATE_CATEGORY: number;
+    export const CKA_JAVA_MIDP_SECURITY_DOMAIN: number;
+    export const CKA_URL: number;
+    export const CKA_HASH_OF_SUBJECT_PUBLIC_KEY: number;
+    export const CKA_HASH_OF_ISSUER_PUBLIC_KEY: number;
+    export const CKA_NAME_HASH_ALGORITHM: number;
+    export const CKA_CHECK_VALUE: number;
+    export const CKA_KEY_TYPE: number;
+    export const CKA_SUBJECT: number;
+    export const CKA_ID: number;
+    export const CKA_SENSITIVE: number;
+    export const CKA_ENCRYPT: number;
+    export const CKA_DECRYPT: number;
+    export const CKA_WRAP: number;
+    export const CKA_UNWRAP: number;
+    export const CKA_SIGN: number;
+    export const CKA_SIGN_RECOVER: number;
+    export const CKA_VERIFY: number;
+    export const CKA_VERIFY_RECOVER: number;
+    export const CKA_DERIVE: number;
+    export const CKA_START_DATE: number;
+    export const CKA_END_DATE: number;
+    export const CKA_MODULUS: number;
+    export const CKA_MODULUS_BITS: number;
+    export const CKA_PUBLIC_EXPONENT: number;
+    export const CKA_PRIVATE_EXPONENT: number;
+    export const CKA_PRIME_1: number;
+    export const CKA_PRIME_2: number;
+    export const CKA_EXPONENT_1: number;
+    export const CKA_EXPONENT_2: number;
+    export const CKA_COEFFICIENT: number;
+    export const CKA_PRIME: number;
+    export const CKA_SUBPRIME: number;
+    export const CKA_BASE: number;
+    export const CKA_PRIME_BITS: number;
+    export const CKA_SUBPRIME_BITS: number;
+    export const CKA_SUB_PRIME_BITS: number;
+    export const CKA_VALUE_BITS: number;
+    export const CKA_VALUE_LEN: number;
+    export const CKA_EXTRACTABLE: number;
+    export const CKA_LOCAL: number;
+    export const CKA_NEVER_EXTRACTABLE: number;
+    export const CKA_ALWAYS_SENSITIVE: number;
+    export const CKA_KEY_GEN_MECHANISM: number;
+    export const CKA_MODIFIABLE: number;
+    export const CKA_COPYABLE: number;
+    export const CKA_DESTROYABLE: number;
+    export const CKA_ECDSA_PARAMS: number;
+    export const CKA_EC_PARAMS: number;
+    export const CKA_EC_POINT: number;
+    export const CKA_SECONDARY_AUTH: number;
+    export const CKA_AUTH_PIN_FLAGS: number;
+    export const CKA_ALWAYS_AUTHENTICATE: number;
+    export const CKA_WRAP_WITH_TRUSTED: number;
+    export const CKA_WRAP_TEMPLATE: number;
+    export const CKA_UNWRAP_TEMPLATE: number;
+    export const CKA_DERIVE_TEMPLATE: number;
+    export const CKA_OTP_FORMAT: number;
+    export const CKA_OTP_LENGTH: number;
+    export const CKA_OTP_TIME_INTERVAL: number;
+    export const CKA_OTP_USER_FRIENDLY_MODE: number;
+    export const CKA_OTP_CHALLENGE_REQUIREMENT: number;
+    export const CKA_OTP_TIME_REQUIREMENT: number;
+    export const CKA_OTP_COUNTER_REQUIREMENT: number;
+    export const CKA_OTP_PIN_REQUIREMENT: number;
+    export const CKA_OTP_COUNTER: number;
+    export const CKA_OTP_TIME: number;
+    export const CKA_OTP_USER_IDENTIFIER: number;
+    export const CKA_OTP_SERVICE_IDENTIFIER: number;
+    export const CKA_OTP_SERVICE_LOGO: number;
+    export const CKA_OTP_SERVICE_LOGO_TYPE: number;
+    export const CKA_GOSTR3410_PARAMS: number;
+    export const CKA_GOSTR3411_PARAMS: number;
+    export const CKA_GOST28147_PARAMS: number;
+    export const CKA_HW_FEATURE_TYPE: number;
+    export const CKA_RESET_ON_INIT: number;
+    export const CKA_HAS_RESET: number;
+    export const CKA_PIXEL_X: number;
+    export const CKA_PIXEL_Y: number;
+    export const CKA_RESOLUTION: number;
+    export const CKA_CHAR_ROWS: number;
+    export const CKA_CHAR_COLUMNS: number;
+    export const CKA_COLOR: number;
+    export const CKA_BITS_PER_PIXEL: number;
+    export const CKA_CHAR_SETS: number;
+    export const CKA_ENCODING_METHODS: number;
+    export const CKA_MIME_TYPES: number;
+    export const CKA_MECHANISM_TYPE: number;
+    export const CKA_REQUIRED_CMS_ATTRIBUTES: number;
+    export const CKA_DEFAULT_CMS_ATTRIBUTES: number;
+    export const CKA_SUPPORTED_CMS_ATTRIBUTES: number;
+    export const CKA_ALLOWED_MECHANISMS: number;
+    export const CKA_VENDOR_DEFINED: number;
     //#endregion
 
     //#region Objects
-    const CKO_DATA: number;
-    const CKO_CERTIFICATE: number;
-    const CKO_PUBLIC_KEY: number;
-    const CKO_PRIVATE_KEY: number;
-    const CKO_SECRET_KEY: number;
-    const CKO_HW_FEATURE: number;
-    const CKO_DOMAIN_PARAMETERS: number;
-    const CKO_MECHANISM: number;
-    const CKO_OTP_KEY: number;
-    const CKO_VENDOR_DEFINED: number;
+    export const CKO_DATA: number;
+    export const CKO_CERTIFICATE: number;
+    export const CKO_PUBLIC_KEY: number;
+    export const CKO_PRIVATE_KEY: number;
+    export const CKO_SECRET_KEY: number;
+    export const CKO_HW_FEATURE: number;
+    export const CKO_DOMAIN_PARAMETERS: number;
+    export const CKO_MECHANISM: number;
+    export const CKO_OTP_KEY: number;
+    export const CKO_VENDOR_DEFINED: number;
     //#endregion
 
     //#region Key types
-    const CKK_RSA: number;
-    const CKK_DSA: number;
-    const CKK_DH: number;
-    const CKK_ECDSA: number;
-    const CKK_EC: number;
-    const CKK_X9_42_DH: number;
-    const CKK_KEA: number;
-    const CKK_GENERIC_SECRET: number;
-    const CKK_RC2: number;
-    const CKK_RC4: number;
-    const CKK_DES: number;
-    const CKK_DES2: number;
-    const CKK_DES3: number;
-    const CKK_CAST: number;
-    const CKK_CAST3: number;
-    const CKK_CAST5: number;
-    const CKK_CAST128: number;
-    const CKK_RC5: number;
-    const CKK_IDEA: number;
-    const CKK_SKIPJACK: number;
-    const CKK_BATON: number;
-    const CKK_JUNIPER: number;
-    const CKK_CDMF: number;
-    const CKK_AES: number;
-    const CKK_BLOWFISH: number;
-    const CKK_TWOFISH: number;
-    const CKK_SECURID: number;
-    const CKK_HOTP: number;
-    const CKK_ACTI: number;
-    const CKK_CAMELLIA: number;
-    const CKK_ARIA: number;
-    const CKK_MD5_HMAC: number;
-    const CKK_SHA_1_HMAC: number;
-    const CKK_RIPEMD128_HMAC: number;
-    const CKK_RIPEMD160_HMAC: number;
-    const CKK_SHA256_HMAC: number;
-    const CKK_SHA384_HMAC: number;
-    const CKK_SHA512_HMAC: number;
-    const CKK_SHA224_HMAC: number;
-    const CKK_SEED: number;
-    const CKK_GOSTR3410: number;
-    const CKK_GOSTR3411: number;
-    const CKK_GOST28147: number;
-    const CKK_VENDOR_DEFINED: number;
+    export const CKK_RSA: number;
+    export const CKK_DSA: number;
+    export const CKK_DH: number;
+    export const CKK_ECDSA: number;
+    export const CKK_EC: number;
+    export const CKK_X9_42_DH: number;
+    export const CKK_KEA: number;
+    export const CKK_GENERIC_SECRET: number;
+    export const CKK_RC2: number;
+    export const CKK_RC4: number;
+    export const CKK_DES: number;
+    export const CKK_DES2: number;
+    export const CKK_DES3: number;
+    export const CKK_CAST: number;
+    export const CKK_CAST3: number;
+    export const CKK_CAST5: number;
+    export const CKK_CAST128: number;
+    export const CKK_RC5: number;
+    export const CKK_IDEA: number;
+    export const CKK_SKIPJACK: number;
+    export const CKK_BATON: number;
+    export const CKK_JUNIPER: number;
+    export const CKK_CDMF: number;
+    export const CKK_AES: number;
+    export const CKK_BLOWFISH: number;
+    export const CKK_TWOFISH: number;
+    export const CKK_SECURID: number;
+    export const CKK_HOTP: number;
+    export const CKK_ACTI: number;
+    export const CKK_CAMELLIA: number;
+    export const CKK_ARIA: number;
+    export const CKK_MD5_HMAC: number;
+    export const CKK_SHA_1_HMAC: number;
+    export const CKK_RIPEMD128_HMAC: number;
+    export const CKK_RIPEMD160_HMAC: number;
+    export const CKK_SHA256_HMAC: number;
+    export const CKK_SHA384_HMAC: number;
+    export const CKK_SHA512_HMAC: number;
+    export const CKK_SHA224_HMAC: number;
+    export const CKK_SEED: number;
+    export const CKK_GOSTR3410: number;
+    export const CKK_GOSTR3411: number;
+    export const CKK_GOST28147: number;
+    export const CKK_VENDOR_DEFINED: number;
     //#endregion
 
     //#region Mechanisms
-    const CKM_RSA_PKCS_KEY_PAIR_GEN: number;
-    const CKM_RSA_PKCS: number;
-    const CKM_RSA_9796: number;
-    const CKM_RSA_X_509: number;
-    const CKM_MD2_RSA_PKCS: number;
-    const CKM_MD5_RSA_PKCS: number;
-    const CKM_SHA1_RSA_PKCS: number;
-    const CKM_RIPEMD128_RSA_PKCS: number;
-    const CKM_RIPEMD160_RSA_PKCS: number;
-    const CKM_RSA_PKCS_OAEP: number;
-    const CKM_RSA_X9_31_KEY_PAIR_GEN: number;
-    const CKM_RSA_X9_31: number;
-    const CKM_SHA1_RSA_X9_31: number;
-    const CKM_RSA_PKCS_PSS: number;
-    const CKM_SHA1_RSA_PKCS_PSS: number;
-    const CKM_DSA_KEY_PAIR_GEN: number;
-    const CKM_DSA: number;
-    const CKM_DSA_SHA1: number;
-    const CKM_DSA_SHA224: number;
-    const CKM_DSA_SHA256: number;
-    const CKM_DSA_SHA384: number;
-    const CKM_DSA_SHA512: number;
-    const CKM_DH_PKCS_KEY_PAIR_GEN: number;
-    const CKM_DH_PKCS_DERIVE: number;
-    const CKM_X9_42_DH_KEY_PAIR_GEN: number;
-    const CKM_X9_42_DH_DERIVE: number;
-    const CKM_X9_42_DH_HYBRID_DERIVE: number;
-    const CKM_X9_42_MQV_DERIVE: number;
-    const CKM_SHA256_RSA_PKCS: number;
-    const CKM_SHA384_RSA_PKCS: number;
-    const CKM_SHA512_RSA_PKCS: number;
-    const CKM_SHA256_RSA_PKCS_PSS: number;
-    const CKM_SHA384_RSA_PKCS_PSS: number;
-    const CKM_SHA512_RSA_PKCS_PSS: number;
-    const CKM_SHA224_RSA_PKCS: number;
-    const CKM_SHA224_RSA_PKCS_PSS: number;
-    const CKM_RC2_KEY_GEN: number;
-    const CKM_RC2_ECB: number;
-    const CKM_RC2_CBC: number;
-    const CKM_RC2_MAC: number;
-    const CKM_RC2_MAC_GENERAL: number;
-    const CKM_RC2_CBC_PAD: number;
-    const CKM_RC4_KEY_GEN: number;
-    const CKM_RC4: number;
-    const CKM_DES_KEY_GEN: number;
-    const CKM_DES_ECB: number;
-    const CKM_DES_CBC: number;
-    const CKM_DES_MAC: number;
-    const CKM_DES_MAC_GENERAL: number;
-    const CKM_DES_CBC_PAD: number;
-    const CKM_DES2_KEY_GEN: number;
-    const CKM_DES3_KEY_GEN: number;
-    const CKM_DES3_ECB: number;
-    const CKM_DES3_CBC: number;
-    const CKM_DES3_MAC: number;
-    const CKM_DES3_MAC_GENERAL: number;
-    const CKM_DES3_CBC_PAD: number;
-    const CKM_DES3_CMAC_GENERAL: number;
-    const CKM_DES3_CMAC: number;
-    const CKM_CDMF_KEY_GEN: number;
-    const CKM_CDMF_ECB: number;
-    const CKM_CDMF_CBC: number;
-    const CKM_CDMF_MAC: number;
-    const CKM_CDMF_MAC_GENERAL: number;
-    const CKM_CDMF_CBC_PAD: number;
-    const CKM_DES_OFB64: number;
-    const CKM_DES_OFB8: number;
-    const CKM_DES_CFB64: number;
-    const CKM_DES_CFB8: number;
-    const CKM_MD2: number;
-    const CKM_MD2_HMAC: number;
-    const CKM_MD2_HMAC_GENERAL: number;
-    const CKM_MD5: number;
-    const CKM_MD5_HMAC: number;
-    const CKM_MD5_HMAC_GENERAL: number;
-    const CKM_SHA_1: number;
-    const CKM_SHA_1_HMAC: number;
-    const CKM_SHA_1_HMAC_GENERAL: number;
-    const CKM_RIPEMD128: number;
-    const CKM_RIPEMD128_HMAC: number;
-    const CKM_RIPEMD128_HMAC_GENERAL: number;
-    const CKM_RIPEMD160: number;
-    const CKM_RIPEMD160_HMAC: number;
-    const CKM_RIPEMD160_HMAC_GENERAL: number;
-    const CKM_SHA256: number;
-    const CKM_SHA256_HMAC: number;
-    const CKM_SHA256_HMAC_GENERAL: number;
-    const CKM_SHA224: number;
-    const CKM_SHA224_HMAC: number;
-    const CKM_SHA224_HMAC_GENERAL: number;
-    const CKM_SHA384: number;
-    const CKM_SHA384_HMAC: number;
-    const CKM_SHA384_HMAC_GENERAL: number;
-    const CKM_SHA512: number;
-    const CKM_SHA512_HMAC: number;
-    const CKM_SHA512_HMAC_GENERAL: number;
-    const CKM_SECURID_KEY_GEN: number;
-    const CKM_SECURID: number;
-    const CKM_HOTP_KEY_GEN: number;
-    const CKM_HOTP: number;
-    const CKM_ACTI: number;
-    const CKM_ACTI_KEY_GEN: number;
-    const CKM_CAST_KEY_GEN: number;
-    const CKM_CAST_ECB: number;
-    const CKM_CAST_CBC: number;
-    const CKM_CAST_MAC: number;
-    const CKM_CAST_MAC_GENERAL: number;
-    const CKM_CAST_CBC_PAD: number;
-    const CKM_CAST3_KEY_GEN: number;
-    const CKM_CAST3_ECB: number;
-    const CKM_CAST3_CBC: number;
-    const CKM_CAST3_MAC: number;
-    const CKM_CAST3_MAC_GENERAL: number;
-    const CKM_CAST3_CBC_PAD: number;
-    const CKM_CAST5_KEY_GEN: number;
-    const CKM_CAST128_KEY_GEN: number;
-    const CKM_CAST5_ECB: number;
-    const CKM_CAST128_ECB: number;
-    const CKM_CAST5_CBC: number;
-    const CKM_CAST128_CBC: number;
-    const CKM_CAST5_MAC: number;
-    const CKM_CAST128_MAC: number;
-    const CKM_CAST5_MAC_GENERAL: number;
-    const CKM_CAST128_MAC_GENERAL: number;
-    const CKM_CAST5_CBC_PAD: number;
-    const CKM_CAST128_CBC_PAD: number;
-    const CKM_RC5_KEY_GEN: number;
-    const CKM_RC5_ECB: number;
-    const CKM_RC5_CBC: number;
-    const CKM_RC5_MAC: number;
-    const CKM_RC5_MAC_GENERAL: number;
-    const CKM_RC5_CBC_PAD: number;
-    const CKM_IDEA_KEY_GEN: number;
-    const CKM_IDEA_ECB: number;
-    const CKM_IDEA_CBC: number;
-    const CKM_IDEA_MAC: number;
-    const CKM_IDEA_MAC_GENERAL: number;
-    const CKM_IDEA_CBC_PAD: number;
-    const CKM_GENERIC_SECRET_KEY_GEN: number;
-    const CKM_CONCATENATE_BASE_AND_KEY: number;
-    const CKM_CONCATENATE_BASE_AND_DATA: number;
-    const CKM_CONCATENATE_DATA_AND_BASE: number;
-    const CKM_XOR_BASE_AND_DATA: number;
-    const CKM_EXTRACT_KEY_FROM_KEY: number;
-    const CKM_SSL3_PRE_MASTER_KEY_GEN: number;
-    const CKM_SSL3_MASTER_KEY_DERIVE: number;
-    const CKM_SSL3_KEY_AND_MAC_DERIVE: number;
-    const CKM_SSL3_MASTER_KEY_DERIVE_DH: number;
-    const CKM_TLS_PRE_MASTER_KEY_GEN: number;
-    const CKM_TLS_MASTER_KEY_DERIVE: number;
-    const CKM_TLS_KEY_AND_MAC_DERIVE: number;
-    const CKM_TLS_MASTER_KEY_DERIVE_DH: number;
-    const CKM_TLS_PRF: number;
-    const CKM_SSL3_MD5_MAC: number;
-    const CKM_SSL3_SHA1_MAC: number;
-    const CKM_MD5_KEY_DERIVATION: number;
-    const CKM_MD2_KEY_DERIVATION: number;
-    const CKM_SHA1_KEY_DERIVATION: number;
-    const CKM_SHA256_KEY_DERIVATION: number;
-    const CKM_SHA384_KEY_DERIVATION: number;
-    const CKM_SHA512_KEY_DERIVATION: number;
-    const CKM_SHA224_KEY_DERIVATION: number;
-    const CKM_PBE_MD2_DES_CBC: number;
-    const CKM_PBE_MD5_DES_CBC: number;
-    const CKM_PBE_MD5_CAST_CBC: number;
-    const CKM_PBE_MD5_CAST3_CBC: number;
-    const CKM_PBE_MD5_CAST5_CBC: number;
-    const CKM_PBE_MD5_CAST128_CBC: number;
-    const CKM_PBE_SHA1_CAST5_CBC: number;
-    const CKM_PBE_SHA1_CAST128_CBC: number;
-    const CKM_PBE_SHA1_RC4_128: number;
-    const CKM_PBE_SHA1_RC4_40: number;
-    const CKM_PBE_SHA1_DES3_EDE_CBC: number;
-    const CKM_PBE_SHA1_DES2_EDE_CBC: number;
-    const CKM_PBE_SHA1_RC2_128_CBC: number;
-    const CKM_PBE_SHA1_RC2_40_CBC: number;
-    const CKM_PKCS5_PBKD2: number;
-    const CKM_PBA_SHA1_WITH_SHA1_HMAC: number;
-    const CKM_WTLS_PRE_MASTER_KEY_GEN: number;
-    const CKM_WTLS_MASTER_KEY_DERIVE: number;
-    const CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC: number;
-    const CKM_WTLS_PRF: number;
-    const CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE: number;
-    const CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE: number;
-    const CKM_KEY_WRAP_LYNKS: number;
-    const CKM_KEY_WRAP_SET_OAEP: number;
-    const CKM_CAMELLIA_KEY_GEN: number;
-    const CKM_CAMELLIA_ECB: number;
-    const CKM_CAMELLIA_CBC: number;
-    const CKM_CAMELLIA_MAC: number;
-    const CKM_CAMELLIA_MAC_GENERAL: number;
-    const CKM_CAMELLIA_CBC_PAD: number;
-    const CKM_CAMELLIA_ECB_ENCRYPT_DATA: number;
-    const CKM_CAMELLIA_CBC_ENCRYPT_DATA: number;
-    const CKM_CAMELLIA_CTR: number;
-    const CKM_ARIA_KEY_GEN: number;
-    const CKM_ARIA_ECB: number;
-    const CKM_ARIA_CBC: number;
-    const CKM_ARIA_MAC: number;
-    const CKM_ARIA_MAC_GENERAL: number;
-    const CKM_ARIA_CBC_PAD: number;
-    const CKM_ARIA_ECB_ENCRYPT_DATA: number;
-    const CKM_ARIA_CBC_ENCRYPT_DATA: number;
-    const CKM_SEED_KEY_GEN: number;
-    const CKM_SEED_ECB: number;
-    const CKM_SEED_CBC: number;
-    const CKM_SEED_MAC: number;
-    const CKM_SEED_MAC_GENERAL: number;
-    const CKM_SEED_CBC_PAD: number;
-    const CKM_SEED_ECB_ENCRYPT_DATA: number;
-    const CKM_SEED_CBC_ENCRYPT_DATA: number;
-    const CKM_SKIPJACK_KEY_GEN: number;
-    const CKM_SKIPJACK_ECB64: number;
-    const CKM_SKIPJACK_CBC64: number;
-    const CKM_SKIPJACK_OFB64: number;
-    const CKM_SKIPJACK_CFB64: number;
-    const CKM_SKIPJACK_CFB32: number;
-    const CKM_SKIPJACK_CFB16: number;
-    const CKM_SKIPJACK_CFB8: number;
-    const CKM_SKIPJACK_WRAP: number;
-    const CKM_SKIPJACK_PRIVATE_WRAP: number;
-    const CKM_SKIPJACK_RELAYX: number;
-    const CKM_KEA_KEY_PAIR_GEN: number;
-    const CKM_KEA_KEY_DERIVE: number;
-    const CKM_FORTEZZA_TIMESTAMP: number;
-    const CKM_BATON_KEY_GEN: number;
-    const CKM_BATON_ECB128: number;
-    const CKM_BATON_ECB96: number;
-    const CKM_BATON_CBC128: number;
-    const CKM_BATON_COUNTER: number;
-    const CKM_BATON_SHUFFLE: number;
-    const CKM_BATON_WRAP: number;
-    const CKM_ECDSA_KEY_PAIR_GEN: number;
-    const CKM_EC_KEY_PAIR_GEN: number;
-    const CKM_ECDSA: number;
-    const CKM_ECDSA_SHA1: number;
-    const CKM_ECDSA_SHA224: number;
-    const CKM_ECDSA_SHA256: number;
-    const CKM_ECDSA_SHA384: number;
-    const CKM_ECDSA_SHA512: number;
-    const CKM_ECDH1_DERIVE: number;
-    const CKM_ECDH1_COFACTOR_DERIVE: number;
-    const CKM_ECMQV_DERIVE: number;
-    const CKM_JUNIPER_KEY_GEN: number;
-    const CKM_JUNIPER_ECB128: number;
-    const CKM_JUNIPER_CBC128: number;
-    const CKM_JUNIPER_COUNTER: number;
-    const CKM_JUNIPER_SHUFFLE: number;
-    const CKM_JUNIPER_WRAP: number;
-    const CKM_FASTHASH: number;
-    const CKM_AES_KEY_GEN: number;
-    const CKM_AES_ECB: number;
-    const CKM_AES_CBC: number;
-    const CKM_AES_MAC: number;
-    const CKM_AES_MAC_GENERAL: number;
-    const CKM_AES_CBC_PAD: number;
-    const CKM_AES_CTR: number;
-    const CKM_AES_CTS: number;
-    const CKM_AES_CMAC: number;
-    const CKM_AES_CMAC_GENERAL: number;
-    const CKM_BLOWFISH_KEY_GEN: number;
-    const CKM_BLOWFISH_CBC: number;
-    const CKM_TWOFISH_KEY_GEN: number;
-    const CKM_TWOFISH_CBC: number;
-    const CKM_AES_GCM: number;
-    const CKM_AES_CCM: number;
-    const CKM_AES_KEY_WRAP: number;
-    const CKM_AES_KEY_WRAP_PAD: number;
-    const CKM_BLOWFISH_CBC_PAD: number;
-    const CKM_TWOFISH_CBC_PAD: number;
-    const CKM_DES_ECB_ENCRYPT_DATA: number;
-    const CKM_DES_CBC_ENCRYPT_DATA: number;
-    const CKM_DES3_ECB_ENCRYPT_DATA: number;
-    const CKM_DES3_CBC_ENCRYPT_DATA: number;
-    const CKM_AES_ECB_ENCRYPT_DATA: number;
-    const CKM_AES_CBC_ENCRYPT_DATA: number;
-    const CKM_GOSTR3410_KEY_PAIR_GEN: number;
-    const CKM_GOSTR3410: number;
-    const CKM_GOSTR3410_WITH_GOSTR3411: number;
-    const CKM_GOSTR3410_KEY_WRAP: number;
-    const CKM_GOSTR3410_DERIVE: number;
-    const CKM_GOSTR3411: number;
-    const CKM_GOSTR3411_HMAC: number;
-    const CKM_GOST28147_KEY_GEN: number;
-    const CKM_GOST28147_ECB: number;
-    const CKM_GOST28147: number;
-    const CKM_GOST28147_MAC: number;
-    const CKM_GOST28147_KEY_WRAP: number;
-    const CKM_DSA_PARAMETER_GEN: number;
-    const CKM_DH_PKCS_PARAMETER_GEN: number;
-    const CKM_X9_42_DH_PARAMETER_GEN: number;
-    const CKM_AES_OFB: number;
-    const CKM_AES_CFB64: number;
-    const CKM_AES_CFB8: number;
-    const CKM_AES_CFB128: number;
-    const CKM_RSA_PKCS_TPM_1_1: number;
-    const CKM_RSA_PKCS_OAEP_TPM_1_1: number;
-    const CKM_VENDOR_DEFINED: number;
+    export const CKM_RSA_PKCS_KEY_PAIR_GEN: number;
+    export const CKM_RSA_PKCS: number;
+    export const CKM_RSA_9796: number;
+    export const CKM_RSA_X_509: number;
+    export const CKM_MD2_RSA_PKCS: number;
+    export const CKM_MD5_RSA_PKCS: number;
+    export const CKM_SHA1_RSA_PKCS: number;
+    export const CKM_RIPEMD128_RSA_PKCS: number;
+    export const CKM_RIPEMD160_RSA_PKCS: number;
+    export const CKM_RSA_PKCS_OAEP: number;
+    export const CKM_RSA_X9_31_KEY_PAIR_GEN: number;
+    export const CKM_RSA_X9_31: number;
+    export const CKM_SHA1_RSA_X9_31: number;
+    export const CKM_RSA_PKCS_PSS: number;
+    export const CKM_SHA1_RSA_PKCS_PSS: number;
+    export const CKM_DSA_KEY_PAIR_GEN: number;
+    export const CKM_DSA: number;
+    export const CKM_DSA_SHA1: number;
+    export const CKM_DSA_SHA224: number;
+    export const CKM_DSA_SHA256: number;
+    export const CKM_DSA_SHA384: number;
+    export const CKM_DSA_SHA512: number;
+    export const CKM_DH_PKCS_KEY_PAIR_GEN: number;
+    export const CKM_DH_PKCS_DERIVE: number;
+    export const CKM_X9_42_DH_KEY_PAIR_GEN: number;
+    export const CKM_X9_42_DH_DERIVE: number;
+    export const CKM_X9_42_DH_HYBRID_DERIVE: number;
+    export const CKM_X9_42_MQV_DERIVE: number;
+    export const CKM_SHA256_RSA_PKCS: number;
+    export const CKM_SHA384_RSA_PKCS: number;
+    export const CKM_SHA512_RSA_PKCS: number;
+    export const CKM_SHA256_RSA_PKCS_PSS: number;
+    export const CKM_SHA384_RSA_PKCS_PSS: number;
+    export const CKM_SHA512_RSA_PKCS_PSS: number;
+    export const CKM_SHA224_RSA_PKCS: number;
+    export const CKM_SHA224_RSA_PKCS_PSS: number;
+    export const CKM_RC2_KEY_GEN: number;
+    export const CKM_RC2_ECB: number;
+    export const CKM_RC2_CBC: number;
+    export const CKM_RC2_MAC: number;
+    export const CKM_RC2_MAC_GENERAL: number;
+    export const CKM_RC2_CBC_PAD: number;
+    export const CKM_RC4_KEY_GEN: number;
+    export const CKM_RC4: number;
+    export const CKM_DES_KEY_GEN: number;
+    export const CKM_DES_ECB: number;
+    export const CKM_DES_CBC: number;
+    export const CKM_DES_MAC: number;
+    export const CKM_DES_MAC_GENERAL: number;
+    export const CKM_DES_CBC_PAD: number;
+    export const CKM_DES2_KEY_GEN: number;
+    export const CKM_DES3_KEY_GEN: number;
+    export const CKM_DES3_ECB: number;
+    export const CKM_DES3_CBC: number;
+    export const CKM_DES3_MAC: number;
+    export const CKM_DES3_MAC_GENERAL: number;
+    export const CKM_DES3_CBC_PAD: number;
+    export const CKM_DES3_CMAC_GENERAL: number;
+    export const CKM_DES3_CMAC: number;
+    export const CKM_CDMF_KEY_GEN: number;
+    export const CKM_CDMF_ECB: number;
+    export const CKM_CDMF_CBC: number;
+    export const CKM_CDMF_MAC: number;
+    export const CKM_CDMF_MAC_GENERAL: number;
+    export const CKM_CDMF_CBC_PAD: number;
+    export const CKM_DES_OFB64: number;
+    export const CKM_DES_OFB8: number;
+    export const CKM_DES_CFB64: number;
+    export const CKM_DES_CFB8: number;
+    export const CKM_MD2: number;
+    export const CKM_MD2_HMAC: number;
+    export const CKM_MD2_HMAC_GENERAL: number;
+    export const CKM_MD5: number;
+    export const CKM_MD5_HMAC: number;
+    export const CKM_MD5_HMAC_GENERAL: number;
+    export const CKM_SHA_1: number;
+    export const CKM_SHA_1_HMAC: number;
+    export const CKM_SHA_1_HMAC_GENERAL: number;
+    export const CKM_RIPEMD128: number;
+    export const CKM_RIPEMD128_HMAC: number;
+    export const CKM_RIPEMD128_HMAC_GENERAL: number;
+    export const CKM_RIPEMD160: number;
+    export const CKM_RIPEMD160_HMAC: number;
+    export const CKM_RIPEMD160_HMAC_GENERAL: number;
+    export const CKM_SHA256: number;
+    export const CKM_SHA256_HMAC: number;
+    export const CKM_SHA256_HMAC_GENERAL: number;
+    export const CKM_SHA224: number;
+    export const CKM_SHA224_HMAC: number;
+    export const CKM_SHA224_HMAC_GENERAL: number;
+    export const CKM_SHA384: number;
+    export const CKM_SHA384_HMAC: number;
+    export const CKM_SHA384_HMAC_GENERAL: number;
+    export const CKM_SHA512: number;
+    export const CKM_SHA512_HMAC: number;
+    export const CKM_SHA512_HMAC_GENERAL: number;
+    export const CKM_SECURID_KEY_GEN: number;
+    export const CKM_SECURID: number;
+    export const CKM_HOTP_KEY_GEN: number;
+    export const CKM_HOTP: number;
+    export const CKM_ACTI: number;
+    export const CKM_ACTI_KEY_GEN: number;
+    export const CKM_CAST_KEY_GEN: number;
+    export const CKM_CAST_ECB: number;
+    export const CKM_CAST_CBC: number;
+    export const CKM_CAST_MAC: number;
+    export const CKM_CAST_MAC_GENERAL: number;
+    export const CKM_CAST_CBC_PAD: number;
+    export const CKM_CAST3_KEY_GEN: number;
+    export const CKM_CAST3_ECB: number;
+    export const CKM_CAST3_CBC: number;
+    export const CKM_CAST3_MAC: number;
+    export const CKM_CAST3_MAC_GENERAL: number;
+    export const CKM_CAST3_CBC_PAD: number;
+    export const CKM_CAST5_KEY_GEN: number;
+    export const CKM_CAST128_KEY_GEN: number;
+    export const CKM_CAST5_ECB: number;
+    export const CKM_CAST128_ECB: number;
+    export const CKM_CAST5_CBC: number;
+    export const CKM_CAST128_CBC: number;
+    export const CKM_CAST5_MAC: number;
+    export const CKM_CAST128_MAC: number;
+    export const CKM_CAST5_MAC_GENERAL: number;
+    export const CKM_CAST128_MAC_GENERAL: number;
+    export const CKM_CAST5_CBC_PAD: number;
+    export const CKM_CAST128_CBC_PAD: number;
+    export const CKM_RC5_KEY_GEN: number;
+    export const CKM_RC5_ECB: number;
+    export const CKM_RC5_CBC: number;
+    export const CKM_RC5_MAC: number;
+    export const CKM_RC5_MAC_GENERAL: number;
+    export const CKM_RC5_CBC_PAD: number;
+    export const CKM_IDEA_KEY_GEN: number;
+    export const CKM_IDEA_ECB: number;
+    export const CKM_IDEA_CBC: number;
+    export const CKM_IDEA_MAC: number;
+    export const CKM_IDEA_MAC_GENERAL: number;
+    export const CKM_IDEA_CBC_PAD: number;
+    export const CKM_GENERIC_SECRET_KEY_GEN: number;
+    export const CKM_CONCATENATE_BASE_AND_KEY: number;
+    export const CKM_CONCATENATE_BASE_AND_DATA: number;
+    export const CKM_CONCATENATE_DATA_AND_BASE: number;
+    export const CKM_XOR_BASE_AND_DATA: number;
+    export const CKM_EXTRACT_KEY_FROM_KEY: number;
+    export const CKM_SSL3_PRE_MASTER_KEY_GEN: number;
+    export const CKM_SSL3_MASTER_KEY_DERIVE: number;
+    export const CKM_SSL3_KEY_AND_MAC_DERIVE: number;
+    export const CKM_SSL3_MASTER_KEY_DERIVE_DH: number;
+    export const CKM_TLS_PRE_MASTER_KEY_GEN: number;
+    export const CKM_TLS_MASTER_KEY_DERIVE: number;
+    export const CKM_TLS_KEY_AND_MAC_DERIVE: number;
+    export const CKM_TLS_MASTER_KEY_DERIVE_DH: number;
+    export const CKM_TLS_PRF: number;
+    export const CKM_SSL3_MD5_MAC: number;
+    export const CKM_SSL3_SHA1_MAC: number;
+    export const CKM_MD5_KEY_DERIVATION: number;
+    export const CKM_MD2_KEY_DERIVATION: number;
+    export const CKM_SHA1_KEY_DERIVATION: number;
+    export const CKM_SHA256_KEY_DERIVATION: number;
+    export const CKM_SHA384_KEY_DERIVATION: number;
+    export const CKM_SHA512_KEY_DERIVATION: number;
+    export const CKM_SHA224_KEY_DERIVATION: number;
+    export const CKM_PBE_MD2_DES_CBC: number;
+    export const CKM_PBE_MD5_DES_CBC: number;
+    export const CKM_PBE_MD5_CAST_CBC: number;
+    export const CKM_PBE_MD5_CAST3_CBC: number;
+    export const CKM_PBE_MD5_CAST5_CBC: number;
+    export const CKM_PBE_MD5_CAST128_CBC: number;
+    export const CKM_PBE_SHA1_CAST5_CBC: number;
+    export const CKM_PBE_SHA1_CAST128_CBC: number;
+    export const CKM_PBE_SHA1_RC4_128: number;
+    export const CKM_PBE_SHA1_RC4_40: number;
+    export const CKM_PBE_SHA1_DES3_EDE_CBC: number;
+    export const CKM_PBE_SHA1_DES2_EDE_CBC: number;
+    export const CKM_PBE_SHA1_RC2_128_CBC: number;
+    export const CKM_PBE_SHA1_RC2_40_CBC: number;
+    export const CKM_PKCS5_PBKD2: number;
+    export const CKM_PBA_SHA1_WITH_SHA1_HMAC: number;
+    export const CKM_WTLS_PRE_MASTER_KEY_GEN: number;
+    export const CKM_WTLS_MASTER_KEY_DERIVE: number;
+    export const CKM_WTLS_MASTER_KEY_DERIVE_DH_ECC: number;
+    export const CKM_WTLS_PRF: number;
+    export const CKM_WTLS_SERVER_KEY_AND_MAC_DERIVE: number;
+    export const CKM_WTLS_CLIENT_KEY_AND_MAC_DERIVE: number;
+    export const CKM_KEY_WRAP_LYNKS: number;
+    export const CKM_KEY_WRAP_SET_OAEP: number;
+    export const CKM_CAMELLIA_KEY_GEN: number;
+    export const CKM_CAMELLIA_ECB: number;
+    export const CKM_CAMELLIA_CBC: number;
+    export const CKM_CAMELLIA_MAC: number;
+    export const CKM_CAMELLIA_MAC_GENERAL: number;
+    export const CKM_CAMELLIA_CBC_PAD: number;
+    export const CKM_CAMELLIA_ECB_ENCRYPT_DATA: number;
+    export const CKM_CAMELLIA_CBC_ENCRYPT_DATA: number;
+    export const CKM_CAMELLIA_CTR: number;
+    export const CKM_ARIA_KEY_GEN: number;
+    export const CKM_ARIA_ECB: number;
+    export const CKM_ARIA_CBC: number;
+    export const CKM_ARIA_MAC: number;
+    export const CKM_ARIA_MAC_GENERAL: number;
+    export const CKM_ARIA_CBC_PAD: number;
+    export const CKM_ARIA_ECB_ENCRYPT_DATA: number;
+    export const CKM_ARIA_CBC_ENCRYPT_DATA: number;
+    export const CKM_SEED_KEY_GEN: number;
+    export const CKM_SEED_ECB: number;
+    export const CKM_SEED_CBC: number;
+    export const CKM_SEED_MAC: number;
+    export const CKM_SEED_MAC_GENERAL: number;
+    export const CKM_SEED_CBC_PAD: number;
+    export const CKM_SEED_ECB_ENCRYPT_DATA: number;
+    export const CKM_SEED_CBC_ENCRYPT_DATA: number;
+    export const CKM_SKIPJACK_KEY_GEN: number;
+    export const CKM_SKIPJACK_ECB64: number;
+    export const CKM_SKIPJACK_CBC64: number;
+    export const CKM_SKIPJACK_OFB64: number;
+    export const CKM_SKIPJACK_CFB64: number;
+    export const CKM_SKIPJACK_CFB32: number;
+    export const CKM_SKIPJACK_CFB16: number;
+    export const CKM_SKIPJACK_CFB8: number;
+    export const CKM_SKIPJACK_WRAP: number;
+    export const CKM_SKIPJACK_PRIVATE_WRAP: number;
+    export const CKM_SKIPJACK_RELAYX: number;
+    export const CKM_KEA_KEY_PAIR_GEN: number;
+    export const CKM_KEA_KEY_DERIVE: number;
+    export const CKM_FORTEZZA_TIMESTAMP: number;
+    export const CKM_BATON_KEY_GEN: number;
+    export const CKM_BATON_ECB128: number;
+    export const CKM_BATON_ECB96: number;
+    export const CKM_BATON_CBC128: number;
+    export const CKM_BATON_COUNTER: number;
+    export const CKM_BATON_SHUFFLE: number;
+    export const CKM_BATON_WRAP: number;
+    export const CKM_ECDSA_KEY_PAIR_GEN: number;
+    export const CKM_EC_KEY_PAIR_GEN: number;
+    export const CKM_ECDSA: number;
+    export const CKM_ECDSA_SHA1: number;
+    export const CKM_ECDSA_SHA224: number;
+    export const CKM_ECDSA_SHA256: number;
+    export const CKM_ECDSA_SHA384: number;
+    export const CKM_ECDSA_SHA512: number;
+    export const CKM_ECDH1_DERIVE: number;
+    export const CKM_ECDH1_COFACTOR_DERIVE: number;
+    export const CKM_ECMQV_DERIVE: number;
+    export const CKM_JUNIPER_KEY_GEN: number;
+    export const CKM_JUNIPER_ECB128: number;
+    export const CKM_JUNIPER_CBC128: number;
+    export const CKM_JUNIPER_COUNTER: number;
+    export const CKM_JUNIPER_SHUFFLE: number;
+    export const CKM_JUNIPER_WRAP: number;
+    export const CKM_FASTHASH: number;
+    export const CKM_AES_KEY_GEN: number;
+    export const CKM_AES_ECB: number;
+    export const CKM_AES_CBC: number;
+    export const CKM_AES_MAC: number;
+    export const CKM_AES_MAC_GENERAL: number;
+    export const CKM_AES_CBC_PAD: number;
+    export const CKM_AES_CTR: number;
+    export const CKM_AES_CTS: number;
+    export const CKM_AES_CMAC: number;
+    export const CKM_AES_CMAC_GENERAL: number;
+    export const CKM_BLOWFISH_KEY_GEN: number;
+    export const CKM_BLOWFISH_CBC: number;
+    export const CKM_TWOFISH_KEY_GEN: number;
+    export const CKM_TWOFISH_CBC: number;
+    export const CKM_AES_GCM: number;
+    export const CKM_AES_CCM: number;
+    export const CKM_AES_KEY_WRAP: number;
+    export const CKM_AES_KEY_WRAP_PAD: number;
+    export const CKM_BLOWFISH_CBC_PAD: number;
+    export const CKM_TWOFISH_CBC_PAD: number;
+    export const CKM_DES_ECB_ENCRYPT_DATA: number;
+    export const CKM_DES_CBC_ENCRYPT_DATA: number;
+    export const CKM_DES3_ECB_ENCRYPT_DATA: number;
+    export const CKM_DES3_CBC_ENCRYPT_DATA: number;
+    export const CKM_AES_ECB_ENCRYPT_DATA: number;
+    export const CKM_AES_CBC_ENCRYPT_DATA: number;
+    export const CKM_GOSTR3410_KEY_PAIR_GEN: number;
+    export const CKM_GOSTR3410: number;
+    export const CKM_GOSTR3410_WITH_GOSTR3411: number;
+    export const CKM_GOSTR3410_KEY_WRAP: number;
+    export const CKM_GOSTR3410_DERIVE: number;
+    export const CKM_GOSTR3411: number;
+    export const CKM_GOSTR3411_HMAC: number;
+    export const CKM_GOST28147_KEY_GEN: number;
+    export const CKM_GOST28147_ECB: number;
+    export const CKM_GOST28147: number;
+    export const CKM_GOST28147_MAC: number;
+    export const CKM_GOST28147_KEY_WRAP: number;
+    export const CKM_DSA_PARAMETER_GEN: number;
+    export const CKM_DH_PKCS_PARAMETER_GEN: number;
+    export const CKM_X9_42_DH_PARAMETER_GEN: number;
+    export const CKM_AES_OFB: number;
+    export const CKM_AES_CFB64: number;
+    export const CKM_AES_CFB8: number;
+    export const CKM_AES_CFB128: number;
+    export const CKM_RSA_PKCS_TPM_1_1: number;
+    export const CKM_RSA_PKCS_OAEP_TPM_1_1: number;
+    export const CKM_VENDOR_DEFINED: number;
     //#endregion
 
     //#region Session flags
-    const CKF_RW_SESSION: number;
-    const CKF_SERIAL_SESSION: number;
+    export const CKF_RW_SESSION: number;
+    export const CKF_SERIAL_SESSION: number;
     //#endregion
 
     //#region Follows
-    const CKF_HW: number;
-    const CKF_ENCRYPT: number;
-    const CKF_DECRYPT: number;
-    const CKF_DIGEST: number;
-    const CKF_SIGN: number;
-    const CKF_SIGN_RECOVER: number;
-    const CKF_VERIFY: number;
-    const CKF_VERIFY_RECOVER: number;
-    const CKF_GENERATE: number;
-    const CKF_GENERATE_KEY_PAIR: number;
-    const CKF_WRAP: number;
-    const CKF_UNWRAP: number;
-    const CKF_DERIVE: number;
+    export const CKF_HW: number;
+    export const CKF_ENCRYPT: number;
+    export const CKF_DECRYPT: number;
+    export const CKF_DIGEST: number;
+    export const CKF_SIGN: number;
+    export const CKF_SIGN_RECOVER: number;
+    export const CKF_VERIFY: number;
+    export const CKF_VERIFY_RECOVER: number;
+    export const CKF_GENERATE: number;
+    export const CKF_GENERATE_KEY_PAIR: number;
+    export const CKF_WRAP: number;
+    export const CKF_UNWRAP: number;
+    export const CKF_DERIVE: number;
     //#endregion
 
     //#region Token Information Flags
-    const CKF_RNG: number;
-    const CKF_WRITE_PROTECTED: number;
-    const CKF_LOGIN_REQUIRED: number;
-    const CKF_USER_PIN_INITIALIZED: number;
-    const CKF_RESTORE_KEY_NOT_NEEDED: number;
-    const CKF_CLOCK_ON_TOKEN: number;
-    const CKF_PROTECTED_AUTHENTICATION_PATH: number;
-    const CKF_DUAL_CRYPTO_OPERATIONS: number;
-    const CKF_TOKEN_INITIALIZED: number;
-    const CKF_SECONDARY_AUTHENTICATION: number;
-    const CKF_USER_PIN_COUNT_LOW: number;
-    const CKF_USER_PIN_FINAL_TRY: number;
-    const CKF_USER_PIN_LOCKED: number;
-    const CKF_USER_PIN_TO_BE_CHANGED: number;
-    const CKF_SO_PIN_COUNT_LOW: number;
-    const CKF_SO_PIN_FINAL_TRY: number;
-    const CKF_SO_PIN_LOCKED: number;
-    const CKF_SO_PIN_TO_BE_CHANGED: number;
-    const CKF_ERROR_STATE: number;
+    export const CKF_RNG: number;
+    export const CKF_WRITE_PROTECTED: number;
+    export const CKF_LOGIN_REQUIRED: number;
+    export const CKF_USER_PIN_INITIALIZED: number;
+    export const CKF_RESTORE_KEY_NOT_NEEDED: number;
+    export const CKF_CLOCK_ON_TOKEN: number;
+    export const CKF_PROTECTED_AUTHENTICATION_PATH: number;
+    export const CKF_DUAL_CRYPTO_OPERATIONS: number;
+    export const CKF_TOKEN_INITIALIZED: number;
+    export const CKF_SECONDARY_AUTHENTICATION: number;
+    export const CKF_USER_PIN_COUNT_LOW: number;
+    export const CKF_USER_PIN_FINAL_TRY: number;
+    export const CKF_USER_PIN_LOCKED: number;
+    export const CKF_USER_PIN_TO_BE_CHANGED: number;
+    export const CKF_SO_PIN_COUNT_LOW: number;
+    export const CKF_SO_PIN_FINAL_TRY: number;
+    export const CKF_SO_PIN_LOCKED: number;
+    export const CKF_SO_PIN_TO_BE_CHANGED: number;
+    export const CKF_ERROR_STATE: number;
     //#endregion
 
     //#region Event Flags
-    const CKF_DONT_BLOCK: number;
+    export const CKF_DONT_BLOCK: number;
     //#endregion
 
     //#region Certificates
-    const CKC_X_509: number;
-    const CKC_X_509_ATTR_CERT: number;
-    const CKC_WTLS: number;
+    export const CKC_X_509: number;
+    export const CKC_X_509_ATTR_CERT: number;
+    export const CKC_WTLS: number;
     //#endregion
 
     //#region MGFs
-    const CKG_MGF1_SHA1: number;
-    const CKG_MGF1_SHA256: number;
-    const CKG_MGF1_SHA384: number;
-    const CKG_MGF1_SHA512: number;
-    const CKG_MGF1_SHA224: number;
+    export const CKG_MGF1_SHA1: number;
+    export const CKG_MGF1_SHA256: number;
+    export const CKG_MGF1_SHA384: number;
+    export const CKG_MGF1_SHA512: number;
+    export const CKG_MGF1_SHA224: number;
     //#endregion
 
     //#region KDFs
-    const CKD_NULL: number;
-    const CKD_SHA1_KDF: number;
-    const CKD_SHA1_KDF_ASN1: number;
-    const CKD_SHA1_KDF_CONCATENATE: number;
-    const CKD_SHA224_KDF: number;
-    const CKD_SHA256_KDF: number;
-    const CKD_SHA384_KDF: number;
-    const CKD_SHA512_KDF: number;
-    const CKD_CPDIVERSIFY_KDF: number;
+    export const CKD_NULL: number;
+    export const CKD_SHA1_KDF: number;
+    export const CKD_SHA1_KDF_ASN1: number;
+    export const CKD_SHA1_KDF_CONCATENATE: number;
+    export const CKD_SHA224_KDF: number;
+    export const CKD_SHA256_KDF: number;
+    export const CKD_SHA384_KDF: number;
+    export const CKD_SHA512_KDF: number;
+    export const CKD_CPDIVERSIFY_KDF: number;
     //#endregion
 
     //#region Mech params
-    const CK_PARAMS_AES_CBC: number;
-    const CK_PARAMS_AES_CCM: number;
-    const CK_PARAMS_AES_GCM: number;
-    const CK_PARAMS_RSA_OAEP: number;
-    const CK_PARAMS_RSA_PSS: number;
-    const CK_PARAMS_EC_DH: number;
-    const CK_PARAMS_AES_GCM_v240: number;
+    export const CK_PARAMS_AES_CBC: number;
+    export const CK_PARAMS_AES_CCM: number;
+    export const CK_PARAMS_AES_GCM: number;
+    export const CK_PARAMS_RSA_OAEP: number;
+    export const CK_PARAMS_RSA_PSS: number;
+    export const CK_PARAMS_EC_DH: number;
+    export const CK_PARAMS_AES_GCM_v240: number;
     //#endregion
 
     //#region User types
-    const CKU_SO: number;
-    const CKU_USER: number;
-    const CKU_CONTEXT_SPECIFIC: number;
+    export const CKU_SO: number;
+    export const CKU_USER: number;
+    export const CKU_CONTEXT_SPECIFIC: number;
     //#endregion
 
     // Initialize flags
-    const CKF_LIBRARY_CANT_CREATE_OS_THREADS: number;
-    const CKF_OS_LOCKING_OK: number;
+    export const CKF_LIBRARY_CANT_CREATE_OS_THREADS: number;
+    export const CKF_OS_LOCKING_OK: number;
 
     //#region Result values
-    const CKR_OK: number;
-    const CKR_CANCEL: number;
-    const CKR_HOST_MEMORY: number;
-    const CKR_SLOT_ID_INVALID: number;
-    const CKR_GENERAL_ERROR: number;
-    const CKR_FUNCTION_FAILED: number;
-    const CKR_ARGUMENTS_BAD: number;
-    const CKR_NO_EVENT: number;
-    const CKR_NEED_TO_CREATE_THREADS: number;
-    const CKR_CANT_LOCK: number;
-    const CKR_ATTRIBUTE_READ_ONLY: number;
-    const CKR_ATTRIBUTE_SENSITIVE: number;
-    const CKR_ATTRIBUTE_TYPE_INVALID: number;
-    const CKR_ATTRIBUTE_VALUE_INVALID: number;
-    const CKR_DATA_INVALID: number;
-    const CKR_DATA_LEN_RANGE: number;
-    const CKR_DEVICE_ERROR: number;
-    const CKR_DEVICE_MEMORY: number;
-    const CKR_DEVICE_REMOVED: number;
-    const CKR_ENCRYPTED_DATA_INVALID: number;
-    const CKR_ENCRYPTED_DATA_LEN_RANGE: number;
-    const CKR_FUNCTION_CANCELED: number;
-    const CKR_FUNCTION_NOT_PARALLEL: number;
-    const CKR_FUNCTION_NOT_SUPPORTED: number;
-    const CKR_KEY_HANDLE_INVALID: number;
-    const CKR_KEY_SIZE_RANGE: number;
-    const CKR_KEY_TYPE_INCONSISTENT: number;
-    const CKR_KEY_NOT_NEEDED: number;
-    const CKR_KEY_CHANGED: number;
-    const CKR_KEY_NEEDED: number;
-    const CKR_KEY_INDIGESTIBLE: number;
-    const CKR_KEY_FUNCTION_NOT_PERMITTED: number;
-    const CKR_KEY_NOT_WRAPPABLE: number;
-    const CKR_KEY_UNEXTRACTABLE: number;
-    const CKR_MECHANISM_INVALID: number;
-    const CKR_MECHANISM_PARAM_INVALID: number;
-    const CKR_OBJECT_HANDLE_INVALID: number;
-    const CKR_OPERATION_ACTIVE: number;
-    const CKR_OPERATION_NOT_INITIALIZED: number;
-    const CKR_PIN_INCORRECT: number;
-    const CKR_PIN_INVALID: number;
-    const CKR_PIN_LEN_RANGE: number;
-    const CKR_PIN_EXPIRED: number;
-    const CKR_PIN_LOCKED: number;
-    const CKR_SESSION_CLOSED: number;
-    const CKR_SESSION_COUNT: number;
-    const CKR_SESSION_HANDLE_INVALID: number;
-    const CKR_SESSION_PARALLEL_NOT_SUPPORTED: number;
-    const CKR_SESSION_READ_ONLY: number;
-    const CKR_SESSION_EXISTS: number;
-    const CKR_SESSION_READ_ONLY_EXISTS: number;
-    const CKR_SESSION_READ_WRITE_SO_EXISTS: number;
-    const CKR_SIGNATURE_INVALID: number;
-    const CKR_SIGNATURE_LEN_RANGE: number;
-    const CKR_TEMPLATE_INCOMPLETE: number;
-    const CKR_TEMPLATE_INCONSISTENT: number;
-    const CKR_TOKEN_NOT_PRESENT: number;
-    const CKR_TOKEN_NOT_RECOGNIZED: number;
-    const CKR_TOKEN_WRITE_PROTECTED: number;
-    const CKR_UNWRAPPING_KEY_HANDLE_INVALID: number;
-    const CKR_UNWRAPPING_KEY_SIZE_RANGE: number;
-    const CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT: number;
-    const CKR_USER_ALREADY_LOGGED_IN: number;
-    const CKR_USER_NOT_LOGGED_IN: number;
-    const CKR_USER_PIN_NOT_INITIALIZED: number;
-    const CKR_USER_TYPE_INVALID: number;
-    const CKR_USER_ANOTHER_ALREADY_LOGGED_IN: number;
-    const CKR_USER_TOO_MANY_TYPES: number;
-    const CKR_WRAPPED_KEY_INVALID: number;
-    const CKR_WRAPPED_KEY_LEN_RANGE: number;
-    const CKR_WRAPPING_KEY_HANDLE_INVALID: number;
-    const CKR_WRAPPING_KEY_SIZE_RANGE: number;
-    const CKR_WRAPPING_KEY_TYPE_INCONSISTENT: number;
-    const CKR_RANDOM_SEED_NOT_SUPPORTED: number;
-    const CKR_RANDOM_NO_RNG: number;
-    const CKR_DOMAIN_PARAMS_INVALID: number;
-    const CKR_BUFFER_TOO_SMALL: number;
-    const CKR_SAVED_STATE_INVALID: number;
-    const CKR_INFORMATION_SENSITIVE: number;
-    const CKR_STATE_UNSAVEABLE: number;
-    const CKR_CRYPTOKI_NOT_INITIALIZED: number;
-    const CKR_CRYPTOKI_ALREADY_INITIALIZED: number;
-    const CKR_MUTEX_BAD: number;
-    const CKR_MUTEX_NOT_LOCKED: number;
-    const CKR_NEW_PIN_MODE: number;
-    const CKR_NEXT_OTP: number;
-    const CKR_EXCEEDED_MAX_ITERATIONS: number;
-    const CKR_FIPS_SELF_TEST_FAILED: number;
-    const CKR_LIBRARY_LOAD_FAILED: number;
-    const CKR_PIN_TOO_WEAK: number;
-    const CKR_PUBLIC_KEY_INVALID: number;
-    const CKR_FUNCTION_REJECTED: number;
+    export const CKR_OK: number;
+    export const CKR_CANCEL: number;
+    export const CKR_HOST_MEMORY: number;
+    export const CKR_SLOT_ID_INVALID: number;
+    export const CKR_GENERAL_ERROR: number;
+    export const CKR_FUNCTION_FAILED: number;
+    export const CKR_ARGUMENTS_BAD: number;
+    export const CKR_NO_EVENT: number;
+    export const CKR_NEED_TO_CREATE_THREADS: number;
+    export const CKR_CANT_LOCK: number;
+    export const CKR_ATTRIBUTE_READ_ONLY: number;
+    export const CKR_ATTRIBUTE_SENSITIVE: number;
+    export const CKR_ATTRIBUTE_TYPE_INVALID: number;
+    export const CKR_ATTRIBUTE_VALUE_INVALID: number;
+    export const CKR_DATA_INVALID: number;
+    export const CKR_DATA_LEN_RANGE: number;
+    export const CKR_DEVICE_ERROR: number;
+    export const CKR_DEVICE_MEMORY: number;
+    export const CKR_DEVICE_REMOVED: number;
+    export const CKR_ENCRYPTED_DATA_INVALID: number;
+    export const CKR_ENCRYPTED_DATA_LEN_RANGE: number;
+    export const CKR_FUNCTION_CANCELED: number;
+    export const CKR_FUNCTION_NOT_PARALLEL: number;
+    export const CKR_FUNCTION_NOT_SUPPORTED: number;
+    export const CKR_KEY_HANDLE_INVALID: number;
+    export const CKR_KEY_SIZE_RANGE: number;
+    export const CKR_KEY_TYPE_INCONSISTENT: number;
+    export const CKR_KEY_NOT_NEEDED: number;
+    export const CKR_KEY_CHANGED: number;
+    export const CKR_KEY_NEEDED: number;
+    export const CKR_KEY_INDIGESTIBLE: number;
+    export const CKR_KEY_FUNCTION_NOT_PERMITTED: number;
+    export const CKR_KEY_NOT_WRAPPABLE: number;
+    export const CKR_KEY_UNEXTRACTABLE: number;
+    export const CKR_MECHANISM_INVALID: number;
+    export const CKR_MECHANISM_PARAM_INVALID: number;
+    export const CKR_OBJECT_HANDLE_INVALID: number;
+    export const CKR_OPERATION_ACTIVE: number;
+    export const CKR_OPERATION_NOT_INITIALIZED: number;
+    export const CKR_PIN_INCORRECT: number;
+    export const CKR_PIN_INVALID: number;
+    export const CKR_PIN_LEN_RANGE: number;
+    export const CKR_PIN_EXPIRED: number;
+    export const CKR_PIN_LOCKED: number;
+    export const CKR_SESSION_CLOSED: number;
+    export const CKR_SESSION_COUNT: number;
+    export const CKR_SESSION_HANDLE_INVALID: number;
+    export const CKR_SESSION_PARALLEL_NOT_SUPPORTED: number;
+    export const CKR_SESSION_READ_ONLY: number;
+    export const CKR_SESSION_EXISTS: number;
+    export const CKR_SESSION_READ_ONLY_EXISTS: number;
+    export const CKR_SESSION_READ_WRITE_SO_EXISTS: number;
+    export const CKR_SIGNATURE_INVALID: number;
+    export const CKR_SIGNATURE_LEN_RANGE: number;
+    export const CKR_TEMPLATE_INCOMPLETE: number;
+    export const CKR_TEMPLATE_INCONSISTENT: number;
+    export const CKR_TOKEN_NOT_PRESENT: number;
+    export const CKR_TOKEN_NOT_RECOGNIZED: number;
+    export const CKR_TOKEN_WRITE_PROTECTED: number;
+    export const CKR_UNWRAPPING_KEY_HANDLE_INVALID: number;
+    export const CKR_UNWRAPPING_KEY_SIZE_RANGE: number;
+    export const CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT: number;
+    export const CKR_USER_ALREADY_LOGGED_IN: number;
+    export const CKR_USER_NOT_LOGGED_IN: number;
+    export const CKR_USER_PIN_NOT_INITIALIZED: number;
+    export const CKR_USER_TYPE_INVALID: number;
+    export const CKR_USER_ANOTHER_ALREADY_LOGGED_IN: number;
+    export const CKR_USER_TOO_MANY_TYPES: number;
+    export const CKR_WRAPPED_KEY_INVALID: number;
+    export const CKR_WRAPPED_KEY_LEN_RANGE: number;
+    export const CKR_WRAPPING_KEY_HANDLE_INVALID: number;
+    export const CKR_WRAPPING_KEY_SIZE_RANGE: number;
+    export const CKR_WRAPPING_KEY_TYPE_INCONSISTENT: number;
+    export const CKR_RANDOM_SEED_NOT_SUPPORTED: number;
+    export const CKR_RANDOM_NO_RNG: number;
+    export const CKR_DOMAIN_PARAMS_INVALID: number;
+    export const CKR_BUFFER_TOO_SMALL: number;
+    export const CKR_SAVED_STATE_INVALID: number;
+    export const CKR_INFORMATION_SENSITIVE: number;
+    export const CKR_STATE_UNSAVEABLE: number;
+    export const CKR_CRYPTOKI_NOT_INITIALIZED: number;
+    export const CKR_CRYPTOKI_ALREADY_INITIALIZED: number;
+    export const CKR_MUTEX_BAD: number;
+    export const CKR_MUTEX_NOT_LOCKED: number;
+    export const CKR_NEW_PIN_MODE: number;
+    export const CKR_NEXT_OTP: number;
+    export const CKR_EXCEEDED_MAX_ITERATIONS: number;
+    export const CKR_FIPS_SELF_TEST_FAILED: number;
+    export const CKR_LIBRARY_LOAD_FAILED: number;
+    export const CKR_PIN_TOO_WEAK: number;
+    export const CKR_PUBLIC_KEY_INVALID: number;
+    export const CKR_FUNCTION_REJECTED: number;
     //#endregion
 
     /**
      * Exception from native module
      */
-    class NativeError extends Error {
+    export class NativeError extends Error {
         /**
          * Native library call stack. Default is empty string
          */
@@ -1851,7 +1851,7 @@ declare module "pkcs11js" {
     /**
      * Exception with the name and value of PKCS#11 return value
      */
-    class Pkcs11Error extends NativeError {
+    export class Pkcs11Error extends NativeError {
         /**
          * PKCS#11 result value. Default is 0
          */
@@ -1865,3 +1865,5 @@ declare module "pkcs11js" {
         public constructor(message?: string, code?: number, method?: string);
     }
 }
+
+export default pkcs11js;
