@@ -34,7 +34,8 @@
                             'OTHER_CPLUSPLUSFLAGS': ['-std=c++17', '-stdlib=libc++', '-v'],
                             'OTHER_CFLAGS': ['-ObjC++'],
                             'OTHER_LDFLAGS': ['-stdlib=libc++'],
-                            'MACOSX_DEPLOYMENT_TARGET': '10.7',
+                            'MACOSX_DEPLOYMENT_TARGET': '10.15',
+                            'ARCHS': ['x86_64', 'arm64'],
                             'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
                         },
                         'libraries': [
